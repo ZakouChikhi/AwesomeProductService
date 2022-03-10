@@ -28,31 +28,48 @@ namespace MiageCorp.AwesomeShop.Product.Controllers
 
         // GET api/<ProductsController>/5
         [HttpGet("{productId}")]
-        public Produit Get(int productId)
+        public IActionResult Get(string productId)
         {
-            return ProductService.getProductById(productId);
+            var product = ProductService.getProductById(productId);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return Ok(product);
+
         }
 
         // POST api/<ProductsController>
         [HttpPost]
-        public void Post([FromBody] Produit product)
+        public IActionResult Post([FromBody] Produit product)
         {
             ProductService.addProduct(product);
+            return Ok();
 
         }
 
         // PUT api/<ProductsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Produit produit)
+        public IActionResult Put(string id, [FromBody] Produit produit)
         {
-            ProductService.updateProduct(id, produit);
+            try
+            {
+                ProductService.updateProduct(id, produit);
+                return Ok();
+            }
+            catch (Exception)
+            {  
+                return NotFound();
+            }
+            
         }
 
         // DELETE api/<ProductsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(string id)
         {
-            ProductService.deleteProduct(id);
+         ProductService.deleteProduct(id);
+                return NoContent();
         }
     }
 }

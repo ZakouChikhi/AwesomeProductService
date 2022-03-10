@@ -5,7 +5,19 @@ namespace MiageCorp.AwesomeShop.Product.Services
     public class ProductService : IProductService
     {
 
-        private static List<Produit> _products = new List<Produit>();
+        private static List<Produit> _products = new List<Produit>(){
+            new Produit() { ProductId = Guid.NewGuid().ToString(), ProductLabel = "Produit 1", ProductDescription =
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Price = 20d },
+            new Produit() { ProductId = Guid.NewGuid().ToString(), ProductLabel = "Produit 2", ProductDescription =
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Price = 12d },
+            new Produit() { ProductId = Guid.NewGuid().ToString(), ProductLabel = "Produit 3", ProductDescription =
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Price = 99.99d },
+            new Produit() { ProductId = Guid.NewGuid().ToString(), ProductLabel = "Produit 4", ProductDescription =
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Price = 5d },
+            new Produit() { ProductId = Guid.NewGuid().ToString(), ProductLabel = "Produit 5", ProductDescription =
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Price = 55.55d },
+ };
+
         public void addProduct(Produit product)
         {
             
@@ -17,7 +29,7 @@ namespace MiageCorp.AwesomeShop.Product.Services
 
         }
 
-        public void deleteProduct(int id)
+        public void deleteProduct(string id)
         {
             var produit = _products.SingleOrDefault(p => p.ProductId == id);
             if (produit != null)
@@ -32,7 +44,7 @@ namespace MiageCorp.AwesomeShop.Product.Services
             return _products.ToList();  
         }
 
-        public Produit getProductById(int productId)
+        public Produit getProductById(string productId)
         {
             var produit = _products.SingleOrDefault(p => p.ProductId == productId);
             if (produit != null)
@@ -42,14 +54,15 @@ namespace MiageCorp.AwesomeShop.Product.Services
             throw new Exception();
         }
 
-        public void updateProduct(int id, Produit produit)
+        public void updateProduct(string id, Produit produit)
         {
             var prod = _products.SingleOrDefault(p => p.ProductId == id);
 
             if(prod != null)
             {
-                prod.ProductName = produit.ProductName;
-                prod.Quantity  = produit.Quantity;
+                prod.ProductLabel = produit.ProductLabel;
+                prod.ProductDescription = produit.ProductDescription;
+                prod.Price  = produit.Price;
          
             }
             throw new Exception();

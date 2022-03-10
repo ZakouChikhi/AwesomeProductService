@@ -20,3 +20,5 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "MiageCorp.AwesomeShop.Product.dll"]
+
+#docker build -f ./MiageCorp.AwesomeShop.Product/DockerFile  -t product:1.0
